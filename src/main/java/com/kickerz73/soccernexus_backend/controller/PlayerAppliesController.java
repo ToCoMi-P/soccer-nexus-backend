@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.time.Instant;
 import java.util.stream.Collectors;
@@ -17,6 +19,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class PlayerAppliesController {
+
+    private static final LocalDate currentMonday = LocalDate.of(2024, 5, 20);
+
+    private static final String PATTERN_FORMAT = "dd.MM.yyyy HH:mm:ss";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.systemDefault());
 
     @Autowired final PlayerRepository playerRepository;
     @Autowired
@@ -43,7 +50,7 @@ public class PlayerAppliesController {
         if(!playerAppliesRepository.findAll().isEmpty()){
             return playerAppliesRepository.findAll()
                     .stream()
-                    .filter(x->x.getDate().equals(LocalDate.of(2024, 5, 20)))
+                    .filter(x->x.getDate().equals(currentMonday))
                     .sorted(Comparator.comparing(PlayerApplies::getInstant))
                     .collect(Collectors.toList());
         }
@@ -53,7 +60,8 @@ public class PlayerAppliesController {
     @PostMapping("/playersapplies/{id}")
     void addPlayer(@RequestParam Long id){
         PlayerEntity p = playerRepository.getReferenceById(id);
-        PlayerApplies pa = new PlayerApplies(p, Instant.now(), LocalDate.of(2024, 5, 20));
+
+        PlayerApplies pa = new PlayerApplies(p, formatter.format(Instant.now()), currentMonday);
         playerAppliesRepository.save(pa);
     }
 
@@ -61,6 +69,21 @@ public class PlayerAppliesController {
     void addPlayer(@RequestParam List<Long> selectedPlayers) {
         for (Long id : selectedPlayers) {
             addPlayer(id);
+        }
+    }
+
+    @PostMapping("/removeplayer/{id}")
+    void removePlayer(@RequestParam Long id){
+        /*PlayerEntity p = playerRepository.getReferenceById(id);
+
+        PlayerApplies pa = new PlayerApplies(p, formatter.format(Instant.now()), currentMonday);
+        playerAppliesRepository.save(pa);*/
+    }
+
+    @PostMapping("/removeplayer")
+    void removePlayer(@RequestParam List<Long> selectedPlayers) {
+        for (Long id : selectedPlayers) {
+            removePlayer(id);
         }
     }
 
