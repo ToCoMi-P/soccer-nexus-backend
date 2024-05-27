@@ -16,11 +16,7 @@ import java.util.*;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
-<<<<<<< remove_Player
-@CrossOrigin//(origins = "http://localhost:3000")
-=======
-@CrossOrigin//(origins = "https://soccer-nexus-backend.onrender.com")
->>>>>>> master
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class PlayerAppliesController {
