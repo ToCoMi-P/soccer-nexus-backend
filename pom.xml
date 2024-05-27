@@ -43,7 +43,7 @@
             <scope>runtime</scope>
         </dependency>
         <!-- just for dev purposes to switch the h2 db-->
-       <!-- <dependency>
+       <!--<dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
@@ -102,6 +102,16 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>
+                        <profile>dev</profile>
+                        <profile>prod</profile>
+                    </profiles>
                 </configuration>
             </plugin>
         </plugins>

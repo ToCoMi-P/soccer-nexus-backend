@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -15,14 +16,18 @@ import java.util.*;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
+<<<<<<< remove_Player
+@CrossOrigin//(origins = "http://localhost:3000")
+=======
 @CrossOrigin//(origins = "https://soccer-nexus-backend.onrender.com")
+>>>>>>> master
 @RestController
 @RequiredArgsConstructor
 public class PlayerAppliesController {
 
     private static final LocalDate currentMonday = LocalDate.of(2024, 5, 20);
 
-    private static final String PATTERN_FORMAT = "dd.MM.yyyy HH:mm:ss";
+    private static final String PATTERN_FORMAT = "dd.MM.yyyy HH:mm:ss.SSS";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.systemDefault());
 
     @Autowired final PlayerRepository playerRepository;
@@ -60,7 +65,6 @@ public class PlayerAppliesController {
     @PostMapping("/playersapplies/{id}")
     void addPlayer(@RequestParam Long id){
         PlayerEntity p = playerRepository.getReferenceById(id);
-
         PlayerApplies pa = new PlayerApplies(p, formatter.format(Instant.now()), currentMonday);
         playerAppliesRepository.save(pa);
     }
@@ -74,10 +78,12 @@ public class PlayerAppliesController {
 
     @PostMapping("/removeplayer/{id}")
     void removePlayer(@RequestParam Long id){
-        /*PlayerEntity p = playerRepository.getReferenceById(id);
+        PlayerEntity toRemovedPlayer = playerRepository.getReferenceById(id);
 
-        PlayerApplies pa = new PlayerApplies(p, formatter.format(Instant.now()), currentMonday);
-        playerAppliesRepository.save(pa);*/
+        Optional<PlayerApplies> optPA = playerAppliesRepository.findAll().stream().filter(x-> x.getPlayer().equals(toRemovedPlayer)).findFirst();
+        if(optPA.isPresent()){
+            playerAppliesRepository.delete(optPA.get());
+        }
     }
 
     @PostMapping("/removeplayer")
