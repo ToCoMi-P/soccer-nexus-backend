@@ -15,7 +15,7 @@ import java.util.*;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
-//@CrossOrigin(origins = "http://localhost:3000") https://soccer-nexus-backend.onrender.com
+@CrossOrigin//(origins = "https://soccer-nexus-backend.onrender.com")
 @RestController
 @RequiredArgsConstructor
 public class PlayerAppliesController {
