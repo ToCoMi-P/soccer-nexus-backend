@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +23,7 @@ public class PlayerAppliesController {
     private static final LocalDate currentMonday = LocalDate.of(2024, 5, 20);
 
     private static final String PATTERN_FORMAT = "dd.MM.yyyy HH:mm:ss.SSS";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.systemDefault());
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.of("Europe/Berlin"));
 
     @Autowired final PlayerRepository playerRepository;
     @Autowired
@@ -77,9 +76,7 @@ public class PlayerAppliesController {
         PlayerEntity toRemovedPlayer = playerRepository.getReferenceById(id);
 
         Optional<PlayerApplies> optPA = playerAppliesRepository.findAll().stream().filter(x-> x.getPlayer().equals(toRemovedPlayer)).findFirst();
-        if(optPA.isPresent()){
-            playerAppliesRepository.delete(optPA.get());
-        }
+        optPA.ifPresent(playerAppliesRepository::delete);
     }
 
     @PostMapping("/removeplayer")
