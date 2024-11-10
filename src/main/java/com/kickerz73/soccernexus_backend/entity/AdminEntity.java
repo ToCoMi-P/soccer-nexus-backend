@@ -17,4 +17,6 @@ public class AdminEntity {
     private @Id @GeneratedValue Long id;
 
     private @NonNull Integer maxPlayers;
+    private @NonNull Integer payPalClicks;
+    private @NonNull Integer darkModeClicks;
 }
