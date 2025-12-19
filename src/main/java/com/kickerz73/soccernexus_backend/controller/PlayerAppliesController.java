@@ -86,4 +86,9 @@ public class PlayerAppliesController {
         }
     }
 
+    @DeleteMapping("/playersapplies/clear")
+    void clearAllPlayerApplies() {
+        playerAppliesRepository.deleteAll();
+    }
+
 }
