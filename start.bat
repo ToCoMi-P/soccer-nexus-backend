@@ -1,0 +1,1 @@
+mvn spring-boot:run "-Dspring.profiles.active=dev" "-Dspring-boot.run.arguments=--server.port=8000" -Pdev
