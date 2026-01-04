@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -42,6 +43,11 @@ public class PlayerAppliesController {
         return playerAppliesRepository.findAll();
     }
 
+    private LocalDateTime parseGermanDate(String instant) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss.SSS");
+    return LocalDateTime.parse(instant, formatter);
+}
+
     @GetMapping("/playersappliesnextmonday")
     List<PlayerApplies> getAllPlayerAppliesForNextMonday(){
         /*if(playerAppliesRepository.findAll().isEmpty()){
@@ -50,8 +56,7 @@ public class PlayerAppliesController {
         if(!playerAppliesRepository.findAll().isEmpty()){
             return playerAppliesRepository.findAll()
                     .stream()
-                    .filter(x->x.getDate().equals(currentMonday))
-                    .sorted(Comparator.comparing(PlayerApplies::getInstant))
+                    .sorted(Comparator.comparing(p -> parseGermanDate(p.getInstant())))
                     .collect(Collectors.toList());
         }
         return new ArrayList<>();
