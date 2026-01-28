@@ -4,6 +4,7 @@ import com.kickerz73.soccernexus_backend.entity.AdminEntity;
 import com.kickerz73.soccernexus_backend.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class AdminController {
     // Methode, um das Admin-Objekt mit maxPlayers zu holen
     @GetMapping("/admin/maxPlayers")
     AdminEntity getMaxPlayers() {
-        List<AdminEntity> list = adminRepository.findAll();
+        List<AdminEntity> list = adminRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         if (!list.isEmpty()) return list.get(0);
         return new AdminEntity(-1, 0, 0); // Standardwert für maxPlayers, payPalClicks und darkModeClicks
     }
