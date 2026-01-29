@@ -2,6 +2,7 @@ package com.kickerz73.soccernexus_backend.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 @ToString
 public class PlayerEntity {
 
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
     private @NonNull String vorname;
     private @NonNull String nachname;
