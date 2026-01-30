@@ -13,9 +13,10 @@ import java.time.LocalDate;
 @ToString
 public class PlayerApplies {
 
-    private @Id @GeneratedValue Long id;
-
-    private @NonNull @OneToOne PlayerEntity player;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    
+    private @OneToOne @JoinColumn(name = "player_id", nullable = false) @NonNull PlayerEntity player;
+    
     private @NonNull String instant;
     private @NonNull LocalDate date;
 }
