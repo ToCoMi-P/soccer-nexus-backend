@@ -3,8 +3,6 @@ package com.kickerz73.soccernexus_backend;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//import org.springframework.web.client.RestTemplate;
-import jakarta.annotation.PostConstruct;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;

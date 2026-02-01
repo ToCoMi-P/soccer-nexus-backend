@@ -18,6 +18,8 @@ public class AdminEntity {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
     private @NonNull Integer maxPlayers;
+    private boolean isPlayerAppliesLocked;
+
     private @NonNull Integer payPalClicks;
     private @NonNull Integer darkModeClicks;
 }

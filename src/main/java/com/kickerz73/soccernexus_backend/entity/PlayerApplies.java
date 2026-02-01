@@ -2,7 +2,7 @@ package com.kickerz73.soccernexus_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDate;
+
 
 @Entity
 @Getter
@@ -18,5 +18,5 @@ public class PlayerApplies {
     private @OneToOne @JoinColumn(name = "player_id", nullable = false) @NonNull PlayerEntity player;
     
     private @NonNull String instant;
-    private @NonNull LocalDate date;
+    private @OneToOne @JoinColumn(name = "matchday_id", nullable = false) @NonNull MatchDayEntity matchDayEntity;
 }
