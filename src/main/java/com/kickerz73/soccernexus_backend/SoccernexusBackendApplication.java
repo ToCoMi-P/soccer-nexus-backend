@@ -18,7 +18,7 @@ public class SoccernexusBackendApplication {
         SpringApplication.run(SoccernexusBackendApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     @Profile("prod")  // ← Jetzt WIRKT @Profile!
     CommandLineRunner onStartupComplete() {
         return args -> {
@@ -34,6 +34,6 @@ public class SoccernexusBackendApplication {
                 System.err.println("✗ Pipedream Request fehlgeschlagen: " + e.getMessage());
             }
         };
-    }
+    }*/
 
 }
